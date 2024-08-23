@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package note_v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "github.com/dogmego/chat-server/pkg/note_v1;note_v1";
+
+service NoteV1 {
+  rpc Create(CreateChatRequest) returns (CreateChatResponse);
+  rpc Delete(DeleteChatRequest) returns (google.protobuf.Empty);
+  rpc SendMessage(SendMessageRequest) returns (google.protobuf.Empty);
+}
+
+// Запрос для создания нового чата
+message CreateChatRequest  {
+  repeated string usernames = 1;
+}
+
+// Ответ для создания нового чата
+message CreateChatResponse{
+  int64 id = 1;
+}
+
+// Запрос для удаления чата
+message DeleteChatRequest {
+  int64 id = 1;
+}
+
+// Ответ для удаления чата
+message DeleteChatResponse {
+}
+
+// Запрос на отправку сообщения
+message SendMessageRequest {
+  string from = 1;
+  string text = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+// Ответ на отправку сообщения
+message SendMessageResponse {
+}
